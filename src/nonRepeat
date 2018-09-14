@@ -1,0 +1,57 @@
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+
+class BSTNode {
+
+    int data;
+    BSTNode left, right;
+
+    public BSTNode(int data) {
+        this.data = data;
+    }
+}
+class BeingZeroBST {
+
+    void printBinPath(BSTNode root, int k) {
+        
+    }
+}
+class BSTOps {
+
+    BSTNode insertBSTNode(BSTNode root, int data) {
+        if (root == null) {
+            return new BSTNode(data);
+        }
+        if (data <= root.data) {
+            root.left = insertBSTNode(root.left, data);
+        } else {
+            root.right = insertBSTNode(root.right, data);
+        }
+        return root;
+    }
+}
+
+public class Solution {
+
+    private static Scanner sc;
+
+    public static void main(String[] args) {
+        BSTOps bst = new BSTOps();
+        sc = new Scanner(System.in);
+        BSTNode root = null;
+        int n = sc.nextInt();
+        int x;
+        for (int i = 1; i <= n; i++) {
+            x = sc.nextInt();
+            root = bst.insertBSTNode(root, x);
+        }
+        BeingZeroBST bzbst = new BeingZeroBST();
+        int q = sc.nextInt();
+        while (q-- != 0) {
+            int k = sc.nextInt();
+            bzbst.printBinPath(root, k);
+        }
+    }
+}
