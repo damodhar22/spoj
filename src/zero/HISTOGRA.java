@@ -1,15 +1,18 @@
 package zero;
 
+import java.io.BufferedInputStream;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.Stack;
 
 public class HISTOGRA {
     public static void main(String args[]){
         Scanner s = new Scanner(System.in);
+        FastIO fs = new FastIO();
         while(true){
             String str = s.nextLine().trim();
             String[] str2 = str.split(" ");
-            int a[]=new int[str2.length];
+            long a[]=new long[str2.length];
             if(Integer.parseInt(str2[0])==0){
                 break;
             }else{
@@ -33,7 +36,7 @@ public class HISTOGRA {
                                     break;
                                 }else{
                                     index = stack.peek();
-                                    area = Math.max(area,a[top]*(i-top));
+                                    area = Math.max(area,a[top]*(i-index-1));
                                 }
                             }
                             stack.push(i);
@@ -48,6 +51,46 @@ public class HISTOGRA {
                 }
                 System.out.println(area);
             }
+        }
+    }
+
+    static class FastIO
+    {
+        static BufferedInputStream in = new BufferedInputStream(System.in);
+        static int readInt() {
+            int no = 0;
+            boolean minus = false;
+            try {
+                int a = in.read();
+                while (a == 32 || a == 10) //10 is newline & 32 is ASCII for space
+                    a = in.read();
+                if (a == '-') {
+                    minus = true;
+                    a = in.read();
+                }
+                while (a != 10 && a != 32 && a != -1) {
+                    no = no * 10 + (a - '0');
+                    a = in.read();
+                }
+            }catch (IOException e) {
+                e.printStackTrace();
+            }
+            return minus ? -no: no;
+        }
+        static String read() {
+            StringBuilder str = new StringBuilder();
+            try {
+                int a = in.read();
+                while (a == 32)
+                    a = in.read();
+                while (a != 10 && a != 32 && a != -1) {
+                    str.append((char)a);
+                    a = in.read();
+                }
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+            return str.toString();
         }
     }
 }

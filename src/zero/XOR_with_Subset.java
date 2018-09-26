@@ -5,6 +5,8 @@ import java.util.Scanner;
 
 public class XOR_with_Subset {
 
+    static int count = 0;
+
     public static void main(String args[]){
         Scanner sc = new Scanner(System.in);
         int T = sc.nextInt();
@@ -23,10 +25,12 @@ public class XOR_with_Subset {
                 Arrays.fill(dp[i],-1);
             }
             System.out.println(rec(a,0, 0, K, dp));
+            System.out.println(count);
         }
     }
 
     static int rec(int a[],int i,int xor,int k,int[][] dp){
+        count++;
         if(i>=a.length){
             return k^xor;
         }
