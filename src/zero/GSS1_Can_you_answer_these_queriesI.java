@@ -7,7 +7,14 @@ import java.util.StringTokenizer;
 public class GSS1_Can_you_answer_these_queriesI {
 
     static int a[];
-    static int s[];
+    static T s[];
+
+    static class T{
+        long pre;
+        long suf;
+        long sum;
+        long max;
+    }
 
     public static void main(String args[]) throws IOException {
 
@@ -15,8 +22,8 @@ public class GSS1_Can_you_answer_these_queriesI {
 
         int n = fr.nextInt();
         a = new int[50005];
-        s = new int[200005];
-        Arrays.fill(s,Integer.MIN_VALUE);
+        s = new T[200005];
+//        Arrays.fill(s,Integer.MIN_VALUE);
         for(int i=1;i<=n;i++){
             a[i] = fr.nextInt();
         }
@@ -27,57 +34,55 @@ public class GSS1_Can_you_answer_these_queriesI {
         while(q-->0){
             int i = fr.nextInt();
             int j = fr.nextInt();
-            sb.append(query(1,n,i,j,1)+"\n");
+            sb.append(query(1,n,i,j,1).max+"\n");
         }
-
         System.out.print(sb.toString());
     }
 
     static void construct(int node,int start,int end){
         if(start == end){
-            s[node] = a[start];
+            T t = new T();
+            t.pre = a[start];
+            t.suf = a[start];
+            t.sum = a[start];
+            t.max = a[start];
+            s[node] = t;
         }else {
             int mid = (start + end) / 2;
             construct(2 * node, start, mid);
             construct(2 * node + 1, mid + 1, end);
-            s[node] = Math.max(s[2 * node] + s[2 * node + 1],Math.max(s[2 * node], s[2 * node + 1]));
+            s[node] = join(node,s[2*node],s[2*node+1]);
         }
     }
 
-    static void update(int node,int start,int end,int value,int idx){
-        if(start == end && start == idx){
-            a[idx] = value;
-            s[node] = value;
-            return;
-        }
-        int mid = (start+end)/2;
-        if(idx <= mid){
-            update(2*node,start,mid,value,idx);
-        }else{
-            update(2*node+1,mid+1,end,value,idx);
-        }
-        s[node] = Math.max(s[2 * node] + s[2 * node + 1],Math.max(s[2 * node], s[2 * node + 1]));
+    static T join(int node,T l,T r){
+        T t = new T();
+        t.pre = Math.max(l.pre,l.sum+r.pre);
+        t.suf = Math.max(r.suf,r.sum+l.suf);
+        t.sum = l.sum + r.sum;
+        t.max = Math.max(Math.max(l.max,r.max),Math.max(Math.max(t.pre,t.suf),l.suf+r.pre));
+        return t;
     }
 
-    static int query(int start,int end,int l,int r,int node){
+    static T query(int start,int end,int l,int r,int node){
 
-
-        if(start > end || start > r || end < l){
-                 return Integer.MIN_VALUE;
-        }
+       // if(start > end || start > r || end < l){
+                 //return Integer.MIN_VALUE;
+       // }
 
         if(start>=l && end <= r){
             return s[node];
         }
+
         int mid = (start+end)/2;
         if(r<=mid){
             return query(start,mid,l,r,2*node);
         }else if(l>mid){
             return query(mid+1,end,l,r,2*node+1);
         }else {
-            int left = query(start, mid, l, r, 2 * node);
-            int right = query(mid + 1, end, l, r, 2 * node + 1);
-            return Math.max(left+right,Math.max(left,right));
+            T left = query(start, mid, l, r, 2 * node);
+            T right = query(mid + 1, end, l, r, 2 * node + 1);
+            return join(node,left,right);
         }
     }
 

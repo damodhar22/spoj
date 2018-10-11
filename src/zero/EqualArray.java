@@ -13,7 +13,7 @@ public class EqualArray {
             int sum=0;
             for(int i=0;i<size;i++){
                 a[i]=s.nextInt();
-                sum+=a[i];
+                    sum+=a[i];
             }
 
             sum-=a[0];
