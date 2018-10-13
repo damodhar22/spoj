@@ -1,0 +1,31 @@
+import java.io.*;
+import java.util.*;
+
+
+public class TestClass {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        PrintWriter wr = new PrintWriter(System.out);
+         String S = br.readLine();
+         int Q = Integer.parseInt(br.readLine().trim());
+         String[] arr = new String[Q];
+         for(int i_arr=0; i_arr<Q; i_arr++)
+         {
+         	arr[i_arr] = br.readLine();
+         }
+
+         int[] out_ = helpPrivateRyan(S, arr);
+         System.out.print(out_[0]);
+         for(int i_out_=1; i_out_<out_.length; i_out_++)
+         {
+         	System.out.print(" " + out_[i_out_]);
+         }
+
+         wr.close();
+         br.close();
+    }
+    static int[] helpPrivateRyan(String S, String[] arr){
+        // Write your code here
+    
+    }
+}
