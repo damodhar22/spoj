@@ -21,11 +21,12 @@ public class Binary_Search_Upper_Lower_Bound {
             System.out.println("higer bound 2=="+higherBound(1));
 
             System.out.println("lower bound 2=="+lowerBound(8));
-            System.out.println("higer bound 2=="+higherBound(8));
+            //System.out.println("higer bound 2=="+higherBound(8));
 
         } // end main method
 
 
+        //sdasdadad
     // this is for range of single number
     static int lowerBound(int x){
             int low = 0;
